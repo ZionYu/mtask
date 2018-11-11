@@ -1,24 +1,38 @@
-# README
+# MTask
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table Schema
 
-Things you may want to cover:
+### Tasks                             
+  ColumnName      | DataType 
+  ----------      | -------- 
+  id              | integer 
+  title           | string
+  content         | string  
+  state           | string  
+  priority        | string
+  deadline        | datetime      
+  user_id         | string
 
-* Ruby version
+### Users
+  ColumnName      | DataType 
+  ----------      | -------- 
+  id              | integer 
+  name            | string
+  email           | string  
+  password_digest | string  
+  role            | string
 
-* System dependencies
+### Categories
+  ColumnName      | DataType 
+  ----------      | -------- 
+  id              | integer 
+  name            | string
 
-* Configuration
+### Category_of_tasks
+  ColumnName      | DataType 
+  ----------      | -------- 
+  id              | integer 
+  task_id         | integer
+  Category_id     | integer  
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  
