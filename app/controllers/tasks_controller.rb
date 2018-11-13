@@ -12,10 +12,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:notice] = "Task was created successfully."
+      flash[:notice] = "任務新增成功"
       redirect_to task_path(@task)
     else
-      flash[:alert] = "Task was failed to create!"
+      flash[:alert] = "任務新增失敗"
       render :new
     end
   end
@@ -30,10 +30,10 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice] = "Task was updated successfully."
+      flash[:notice] = "任務更新成功"
       redirect_to task_path(@task)
     else
-      flash[:alert] = "Task was failed to update!"
+      flash[:alert] = "任務更新失敗"
       render :edit
     end
     
@@ -43,7 +43,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_path
-    flash[:notice] = 'Task was deleted'
+    flash[:notice] = '任務已刪除'
   end
 
   private
