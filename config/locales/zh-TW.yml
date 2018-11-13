@@ -1,0 +1,21 @@
+zh-TW:
+  view:
+    task:
+      message:
+        delete_confirm: "確定刪除嗎？"
+  activerecord:
+    models:
+      user: 使用者
+      task: 任務
+    attributes:
+      user:
+        name: 名字
+        email: 信箱
+        password-digest: 密碼
+        role: 身份
+      task:
+        title: 標題
+        content: 內容
+        state: 狀態 
+        priority: 優先順序
+        deadline: 結束時間
