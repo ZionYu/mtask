@@ -10,5 +10,7 @@
   <%= f.text_field :title %>
   <%= f.label :content, 'Content' %>
   <%= f.text_area :content %>
+  <%= f.label :deadline, 'Deadline' %>
+  <%= f.datetime_select :deadline, start_year: Time.current.year %>
   <%= f.submit %>
 <% end %>
