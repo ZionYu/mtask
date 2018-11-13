@@ -10,6 +10,16 @@ RSpec.describe TasksController, type: :controller do
     end
   end
 
+  describe 'Tasks are sorted by created_at desc' do
+    before(:each) do
+      @task1 = Task.create(id: 1, content: "tast1", created_at: Time.now)
+      @task2 = Task.create(id: 2, content: "task2", created_at: Time.now - 3.hours)
+    end
+    it 'Whether created_at are sorted in desc' do
+      expect(Task.all.order(created_at: :desc).map(&:id)).to eq [1, 2]
+    end
+  end
+
   describe "GET new" do
     it "should assign a new task to @task" do
       get :new
