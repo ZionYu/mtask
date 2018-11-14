@@ -2,11 +2,23 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
   def index
+    @states = Task.states
     @tasks = Task.order(created_at: :desc)
     if params[:type] == "build"
-      @tasks = Task.order(created_at: :asc)
+      @tasks = Task.order(created_at: :asc)   
     elsif params[:type] == "end"
       @tasks = Task.order(deadline: :asc)
+    end
+    if params[:search]
+      @tasks = Task.where('title LIKE ?', "%#{params[:search]}%")
+    elsif params[:state] == "0"
+      @tasks = Task.where('state = 0', "%#{params[:state]}%")
+    elsif params[:state] == "1"
+      @tasks = Task.where('state = 1', "%#{params[:state]}%")
+    elsif params[:state] == "2"
+      @tasks = Task.where('state = 2 ', "%#{params[:state]}%")
+    else
+      @tasks = Task.all
     end
   end
   
@@ -58,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline)
+    params.require(:task).permit(:title, :content, :deadline, :state)
   end
 
 end
