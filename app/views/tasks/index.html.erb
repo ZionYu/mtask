@@ -25,3 +25,4 @@
     <%= link_to 'Destroy', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')} %>
   <% end %>
 </ul>
+<%= paginate @tasks %>
