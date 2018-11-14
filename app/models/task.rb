@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   validates_presence_of :title
   validate :date_valid?
+  enum state: {todo: 0, processing: 1, done: 2 }
+
 
   private
 
