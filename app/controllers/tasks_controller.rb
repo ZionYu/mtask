@@ -3,23 +3,23 @@ class TasksController < ApplicationController
   
   def index
     @states = Task.states
-    @tasks = Task.order(created_at: :desc)
+    @tasks = Task.order(created_at: :desc).page(params[:page]).per(5)
     if params[:type] == "build"
-      @tasks = Task.order(created_at: :asc)   
+      @tasks = Task.order(created_at: :asc).page(params[:page]).per(5) 
     elsif params[:type] == "end"
-      @tasks = Task.order(deadline: :asc)
+      @tasks = Task.order(deadline: :asc).page(params[:page]).per(5)
     elsif params[:type] == "pry"
-      @tasks = Task.order(priority: :asc)
-    end
-    if params[:search]
-      @tasks = Task.where('title LIKE ?', "%#{params[:search]}%")
+      @tasks = Task.order(priority: :asc).page(params[:page]).per(5)
+    elsif params[:search]
+      @tasks = Task.where('title LIKE ?', "%#{params[:search]}%").page(params[:page]).per(5)
     elsif params[:state] == "0"
-      @tasks = Task.where('state = 0', "%#{params[:state]}%")
+      @tasks = Task.where('state = 0', "%#{params[:state]}%").page(params[:page]).per(5)
     elsif params[:state] == "1"
-      @tasks = Task.where('state = 1', "%#{params[:state]}%")
+      @tasks = Task.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(5)
     elsif params[:state] == "2"
-      @tasks = Task.where('state = 2 ', "%#{params[:state]}%")
+      @tasks = Task.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(5)
     end
+    
   end
   
   def new
