@@ -8,6 +8,8 @@ class TasksController < ApplicationController
       @tasks = Task.order(created_at: :asc)   
     elsif params[:type] == "end"
       @tasks = Task.order(deadline: :asc)
+    elsif params[:type] == "pry"
+      @tasks = Task.order(priority: :asc)
     end
     if params[:search]
       @tasks = Task.where('title LIKE ?', "%#{params[:search]}%")
@@ -17,8 +19,6 @@ class TasksController < ApplicationController
       @tasks = Task.where('state = 1', "%#{params[:state]}%")
     elsif params[:state] == "2"
       @tasks = Task.where('state = 2 ', "%#{params[:state]}%")
-    else
-      @tasks = Task.all
     end
   end
   
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   def update
@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :state)
+    params.require(:task).permit(:title, :content, :deadline, :state, :priority)
   end
 
 end

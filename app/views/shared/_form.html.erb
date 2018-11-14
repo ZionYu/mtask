@@ -13,6 +13,8 @@
   <%= f.label :deadline, 'Deadline' %>
   <%= f.datetime_select :deadline, start_year: Time.current.year %>
   <%= f.label :state, "State" %>
-  <%= f.select(:state, options_for_select(Task.states.map { |key, value| [key.humanize, key] }))   %>
+  <%= f.select(:state, options_for_select(Task.states.map { |key, value| [key.humanize, key] }, selected: @task.state))   %>
+  <%= f.label :priority, 'Priority' %>
+  <%= f.select(:priority, options_for_select(Task.priorities.map { |key, value| [key.humanize, key] }, selected: @task.priority))   %>
   <%= f.submit %>
 <% end %>

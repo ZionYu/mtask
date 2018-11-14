@@ -1,7 +1,9 @@
 
 <p><%= link_to 'new', new_task_path %></p>
 <p><%= link_to '依結束日期排序', tasks_path(type:"end") %></p>
+<p><%= link_to '依優先程度排序', tasks_path(type:"pry") %></p>
 <p><%= link_to '依建立時間舊->新', tasks_path(type:"build") %></p>
+
 <%= form_tag tasks_path, method: :get do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search..." %>
   <%= submit_tag "Search", name: nil %>
@@ -15,6 +17,7 @@
   <% @tasks.each do |task| %>
     <li><%= task.title %></li>
     <li><%= task.state.capitalize %></li>
+    <li><%= task.priority %></li>
     <li><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></li>
     <li><%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></li>
     <%= link_to 'Show', task_path(task) %>
