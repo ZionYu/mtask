@@ -1,8 +1,12 @@
 
 <p><%= link_to 'new', new_task_path %></p>
+<p><%= link_to '依結束日期排序', tasks_path(type:"end") %></p>
+<p><%= link_to '依建立時間舊->新', tasks_path(type:"build") %></p>
 <ul>
   <% @tasks.each do |task| %>
     <li><%= task.title %></li>
+    <li><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></li>
+    <li><%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></li>
     <%= link_to 'Show', task_path(task) %>
     <%= link_to 'Edit', edit_task_path(task) %>
     <%= link_to 'Destroy', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')} %>
