@@ -12,5 +12,7 @@
   <%= f.text_area :content %>
   <%= f.label :deadline, 'Deadline' %>
   <%= f.datetime_select :deadline, start_year: Time.current.year %>
+  <%= f.label :state, "State" %>
+  <%= f.select(:state, options_for_select(Task.states.map { |key, value| [key.humanize, key] }))   %>
   <%= f.submit %>
 <% end %>
