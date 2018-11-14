@@ -21,7 +21,7 @@ RSpec.describe Task, type: :model do
 
   describe '#state' do
     before(:each) do
-      @task = tasks = Task.create(title:"xxx", content:"oooo", deadline:"2018-12-22 08:11:00")
+      @task = Task.create(title:"xxx", content:"oooo", deadline:"2018-12-22 08:11:00")
     end
     it 'is default state' do
       expect(@task.state).to eq('todo')
@@ -35,6 +35,25 @@ RSpec.describe Task, type: :model do
       expect(@task).to be_valid
       @task.save
       expect(@task.state).to eq('done')
+    end
+  end
+
+  describe '#priority' do
+    before(:each) do
+      @task = Task.create(title:"xxx", deadline:"2018-12-22 08:11:00")
+    end
+    it 'is default priority' do
+      expect(@task.priority).to eq('high')
+    end
+    it 'should change priority' do
+      @task.medium!
+      expect(@task).to be_valid
+      @task.save
+      expect(@task.priority).to eq('medium')
+      @task.low!
+      expect(@task).to be_valid
+      @task.save
+      expect(@task.priority).to eq('low')
     end
   end
   
