@@ -121,5 +121,5 @@ RSpec.describe TasksController, type: :controller do
       expect(response).to redirect_to(tasks_url)
     end
   end
-  
+
 end

@@ -18,4 +18,24 @@ RSpec.describe Task, type: :model do
       expect(Task.new(title: 'Anything', deadline: '2007-12-22 08:11:00')).not_to be_valid
     end
   end
+
+  describe '#state' do
+    before(:each) do
+      @task = tasks = Task.create(title:"xxx", content:"oooo", deadline:"2018-12-22 08:11:00")
+    end
+    it 'is default state' do
+      expect(@task.state).to eq('todo')
+    end
+    it 'should change state' do
+      @task.processing!
+      expect(@task).to be_valid
+      @task.save
+      expect(@task.state).to eq('processing')
+      @task.done!
+      expect(@task).to be_valid
+      @task.save
+      expect(@task.state).to eq('done')
+    end
+  end
+  
 end
