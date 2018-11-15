@@ -3,7 +3,8 @@ class Task < ApplicationRecord
   validate :date_valid?
   enum state: {todo: 0, processing: 1, done: 2 }
   enum priority: {high: 0, medium: 1, low: 2 }
-
+  
+  belongs_to :user
 
   private
 
