@@ -9,7 +9,8 @@ namespace :dev do
         created_at:Time.now - rand(0..10000) - rand(1..10).days,
         deadline: Time.now + rand(0..10000) + rand(1..100).days,
         state: rand(0..2),
-        priority: rand(0..2)
+        priority: rand(0..2),
+        user_id: 1
       )
     end
   end 
