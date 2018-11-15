@@ -1,3 +1,5 @@
+<%= render partial: "shared/form_nav" %>
+<br>
 <% if @task.errors.present? %>
   <ul>
     <% @task.errors.each do |error, message| %>
@@ -5,16 +7,33 @@
     <% end %>
   </ul>
 <% end %>
-<%= form_for @task do |f| %>
-  <%= f.label :title, 'Title' %>
-  <%= f.text_field :title %>
-  <%= f.label :content, 'Content' %>
-  <%= f.text_area :content %>
-  <%= f.label :deadline, 'Deadline' %>
-  <%= f.datetime_select :deadline, start_year: Time.current.year %>
-  <%= f.label :state, "State" %>
-  <%= f.select(:state, options_for_select(Task.states.map { |key, value| [key.humanize, key] }, selected: @task.state))   %>
-  <%= f.label :priority, 'Priority' %>
-  <%= f.select(:priority, options_for_select(Task.priorities.map { |key, value| [key.humanize, key] }, selected: @task.priority))   %>
-  <%= f.submit %>
-<% end %>
+<div class="container" >
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <%= form_for @task do |f| %>
+        <div class="form-group">
+          <%= f.label :title, 'Title' %>
+          <%= f.text_field :title, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :content, 'Content' %>
+          <%= f.text_area :content, rows:8, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :deadline, 'Deadline' %>
+          <%= f.datetime_select :deadline, start_year: Time.current.year, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :state, "State" %>
+          <%= f.select(:state, options_for_select(Task.states.map { |key, value| [key.humanize, key] }, selected: @task.state, class:"form-control"))   %>
+        </div>
+        <div class="form-group">
+          <%= f.label :priority, 'Priority' %>
+          <%= f.select(:priority, options_for_select(Task.priorities.map { |key, value| [key.humanize, key] }, selected: @task.priority, class:"form-control"))   %>  
+        </div>
+        <%= f.submit class:"btn card-btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

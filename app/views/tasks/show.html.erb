@@ -1,5 +1,19 @@
-<div>
-  <%= @task.title %>
-  <%= @task.content %>
-  <%= link_to 'Back', tasks_path %>
+<%= render partial: "shared/form_nav" %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="jumbotron">
+        <h2><%= @task.title%></h2>
+        <hr class="my-4">
+        <h2 class="display-4"><%= @task.content %></h2>
+        <h4>狀態：<%= @task.state %></h4>
+        <h4>到期日：<%= @task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></h4>
+        <h4>優先度：<%= @task.priority %></h4>
+        <h4>建立日期：<%= @task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></h4>
+        <br>
+        <%= link_to 'Back', tasks_path, class: "btn card-btn"%>    
+      </div>    
+    </div>
+  </div> 
 </div>
