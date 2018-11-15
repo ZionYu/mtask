@@ -1,28 +1,46 @@
+<%# Navbar %>
+<%= render partial: "shared/navbar" %>
+<br>
+<%# New and Select %>
+<div class="container text-center">
+  <div class="row" id="assort">
+    <div class="col-xs-2 box m-4 p-5">
+      <%= link_to 'new', new_task_path %>
+    </div>  
+    <div class="col m-4 p-3">
+      <%= form_tag tasks_path, method: :get do %>    
+        <%= select_tag :state, options_for_select(@states), :include_blank => "All", class:"custom-select" %>
+        <%= submit_tag "Go", name: nil, class:" btn card-btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br>
+<%# Task cards  %>
+<div class="container">
+  <div class="row" id="task-part">
+    <% @tasks.each do |task| %>
+      <div class="col-md-10 card p-1" style="width: 22rem;">
+        <div class="card-body">
+          <h5 class="card-title">任務：<%= task.title.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">狀態： <%= task.state.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">優先度： <%= task.priority.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">到期日： <%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></h5>
+          <p class="card-text"></p> 
+          <%= link_to 'See more', task_path(task), class:"card-link btn card-btn" %>
+          <%= link_to 'Edit', edit_task_path(task), class:"card-link btn card-btn" %>
+          <%= link_to 'Delete', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')}, class:"card-link btn card-btn"%>
+          <blockquote class="blockquote mb-0">
+            <footer class="blockquote-footer text-right">
+            <%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %><cite title="Source Title"></cite></footer>
+          </blockquote>
+        </div>
+      </div>
+    <% end %>
+<%# pagination %>
+      <div class="col-md-6 offset-md-4">
+        <%= paginate @tasks, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+      </div>
+  </div>
+</div>
 
-<p><%= link_to 'new', new_task_path %></p>
-<p><%= link_to '依結束日期排序', tasks_path(type:"end") %></p>
-<p><%= link_to '依優先程度排序', tasks_path(type:"pry") %></p>
-<p><%= link_to '依建立時間舊->新', tasks_path(type:"build") %></p>
-
-<%= form_tag tasks_path, method: :get do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search..." %>
-  <%= submit_tag "Search", name: nil %>
-<% end %>
-<%= form_tag tasks_path, method: :get do %>
-  <%= select_tag :state, options_for_select(@states), include_blank: true %>
-  <%= submit_tag "Go", name: nil %>
-<% end %>
-<h3>所有任務</h3>
-<ul>
-  <% @tasks.each do |task| %>
-    <li><%= task.title %></li>
-    <li><%= task.state.capitalize %></li>
-    <li><%= task.priority %></li>
-    <li><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></li>
-    <li><%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></li>
-    <%= link_to 'Show', task_path(task) %>
-    <%= link_to 'Edit', edit_task_path(task) %>
-    <%= link_to 'Destroy', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')} %>
-  <% end %>
-</ul>
-<%= paginate @tasks %>
