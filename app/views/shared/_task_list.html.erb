@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row" id="task-part">
+    <% @tasks.each do |task| %>
+      <div class="col-md-10 card p-1" style="width: 22rem;">
+        <div class="card-body">
+          <h5 class="card-title">任務：<%= task.title.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">狀態： <%= task.state.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">優先度： <%= task.priority.capitalize %></h5>
+          <h5 class="card-subtitle mb-2 text-muted">到期日： <%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></h5>
+          <p class="card-text"></p> 
+          <%= link_to 'See more', task_path(task), class:"card-link btn card-btn" %>
+          <%= link_to 'Edit', edit_task_path(task), class:"card-link btn card-btn" %>
+          <%= link_to 'Delete', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')}, class:"card-link btn card-btn"%>
+          <blockquote class="blockquote mb-0">
+            <footer class="blockquote-footer text-right">
+            <%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %><cite title="Source Title"></cite></footer>
+          </blockquote>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
