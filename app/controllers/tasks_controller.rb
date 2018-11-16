@@ -1,25 +1,24 @@
 class TasksController < ApplicationController
+  before_action :authorize
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  
   def index
     @states = Task.states
-    @tasks = Task.order(created_at: :desc).page(params[:page]).per(6)
+    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(6)
     if params[:type] == "build"
-      @tasks = Task.order(created_at: :asc).page(params[:page]).per(6) 
+      @tasks = current_user.tasks.order(created_at: :asc).page(params[:page]).per(6) 
     elsif params[:type] == "end"
-      @tasks = Task.order(deadline: :asc).page(params[:page]).per(6)
+      @tasks = current_user.tasks.order(deadline: :asc).page(params[:page]).per(6)
     elsif params[:type] == "pry"
-      @tasks = Task.order(priority: :asc).page(params[:page]).per(6)
+      @tasks = current_user.tasks.order(priority: :asc).page(params[:page]).per(6)
     elsif params[:search]
-      @tasks = Task.where('title LIKE ?', "%#{params[:search]}%").page(params[:page]).per(6)
+      @tasks = current_user.tasks.where('title LIKE ?', "%#{params[:search]}%").page(params[:page]).per(6)
     elsif params[:state] == "0"
-      @tasks = Task.where('state = 0', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = current_user.tasks.where('state = 0', "%#{params[:state]}%").page(params[:page]).per(6)
     elsif params[:state] == "1"
-      @tasks = Task.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = current_user.tasks.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(6)
     elsif params[:state] == "2"
-      @tasks = Task.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = current_user.tasks.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(6)
     end
-    
   end
   
   def new
@@ -28,6 +27,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
     if @task.save
       flash[:notice] = "任務新增成功"
       redirect_to task_path(@task)
