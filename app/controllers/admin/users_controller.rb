@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Admin::BaseController
   
   before_action :set_user, only: [:edit, :update, :destroy] 
 
@@ -13,7 +13,6 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
       redirect_to admin_root_path
     else
       render :new
@@ -21,16 +20,29 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    if @user.save
-      redirect_to admin_root_path
-    else
-      render :edit
+    if params[:commit] == "更新使用者"
+      @user.update(user_params)
+      if @user.save
+        redirect_to admin_root_path
+        flash[:notice] = "使用者資料已更新"
+      else
+        render :edit
+      end 
+    elsif params[:commit] == "Update"
+      @user.update(role: params[:role])
+      if @user.save
+        redirect_to admin_users_path
+        flash[:notice] = "使用者權限已更新"
+      else
+        flash[:alert] = "更新失敗"
+        render :index
+      end
     end
   end
 
   def destroy
-    @user.destroy
+    @user.destroy if User.where(role:"admin").count > 1
+    flash[:alert] = "管理者剩1人不能刪除！"
     redirect_to admin_root_path
   end
 
@@ -41,7 +53,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
   end
 
 end
