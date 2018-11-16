@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <%= link_to 'Create User', new_admin_user_path, class:"btn card-btn m-4" %> 
+    <%= link_to 'My task', task_user_path(current_user), class:"btn card-btn m-4" %> 
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th colspan="1">Task</th>
+          <th colspan="2">Option</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <strong><%= user.tasks.count %></strong>
+              
+              <%= link_to 'Task', task_user_path(user), class:"btn card-btn ml-4" %>
+            </td>
+            <td>
+              <%= link_to 'Edit', edit_admin_user_path(user), class:"btn card-btn ml-4" %>
+              <%= link_to 'Delete', admin_user_path(user), class:"btn card-btn ml-4", method: :delete, data: {confirm:"確定刪除嗎？"} %>
+            </td>
+          </tr>
+        <% end %>   
+      </tbody>
+    </table>
+  </div>
+</div>

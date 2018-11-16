@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
 
   def new
 
@@ -12,7 +13,12 @@ class UsersController < ApplicationController
     else
       redirect_to '/signup'
     end
-  end   
+  end  
+
+  def task
+    @user = User.find(params[:id])
+    @tasks = @user.tasks.all
+  end
 
   private
   

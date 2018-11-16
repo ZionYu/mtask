@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="row">
+    <h1 class="d-flex"><%= @user.name %>的任務</h1>
+    <p><%= link_to 'New Task', new_task_path, class: "btn card-btn float-lg-right mt-2" %></p>
+    <%= render partial: 'shared/task_list' %>
+  </div>
+</div>
