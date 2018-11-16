@@ -1,24 +1,28 @@
 class TasksController < ApplicationController
   before_action :authorize
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  
+  
   def index
     @states = Task.states
-    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(6)
+    @user = current_user
+    @tasks = @user.tasks.order(created_at: :desc).page(params[:page]).per(6)
     if params[:type] == "build"
-      @tasks = current_user.tasks.order(created_at: :asc).page(params[:page]).per(6) 
+      @tasks = @user.tasks.order(created_at: :asc).page(params[:page]).per(6) 
     elsif params[:type] == "end"
-      @tasks = current_user.tasks.order(deadline: :asc).page(params[:page]).per(6)
+      @tasks = @user.tasks.order(deadline: :asc).page(params[:page]).per(6)
     elsif params[:type] == "pry"
-      @tasks = current_user.tasks.order(priority: :asc).page(params[:page]).per(6)
+      @tasks = @user.tasks.order(priority: :asc).page(params[:page]).per(6)
     elsif params[:search]
-      @tasks = current_user.tasks.where('title LIKE ?', "%#{params[:search]}%").page(params[:page]).per(6)
+      @tasks = @user.tasks.where('title LIKE ?', "%#{params[:search]}%").page(params[:page]).per(6)
     elsif params[:state] == "0"
-      @tasks = current_user.tasks.where('state = 0', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = @user.tasks.where('state = 0', "%#{params[:state]}%").page(params[:page]).per(6)
     elsif params[:state] == "1"
-      @tasks = current_user.tasks.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = @user.tasks.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(6)
     elsif params[:state] == "2"
-      @tasks = current_user.tasks.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(6)
+      @tasks = @user.tasks.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(6)
     end
+    
   end
   
   def new
