@@ -1,19 +1,27 @@
 <nav class="navbar navbar-dark bg-dark p-4">
-  <%= link_to 'Task', root_path, class: "navbar-brand" %>   
+
+  <%= link_to 'Task', root_path, class: "navbar-brand" %>
+
+  <% if current_user %>
+    <h4 class="text-light p-4">Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %></h4>
+  <% else %>
+    <h4 class="p-4"><%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %></h4>
+  <% end %> 
+
   <form class="form-inline ml-auto">
     <%= form_tag tasks_path, method: :get do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search...", class:"form-control mr-sm-2" %>
       <%= submit_tag "Search", name: nil, class:"btn option-bg my-2 my-sm-0" %>
     <% end %>
   </form> 
+  
   <div class="nav-item dropdown m-2">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Sort by..
-    </a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by..</a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
       <%= link_to 'Deadline', tasks_path(type:"end"), class:"dropdown-item" %>
       <%= link_to 'Priority', tasks_path(type:"pry"), class:"dropdown-item" %>
       <%= link_to 'Created', tasks_path(type:"build"), class:"dropdown-item" %>
     </div>
   </div>
+
 </nav>
