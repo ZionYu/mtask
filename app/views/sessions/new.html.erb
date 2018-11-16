@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="text-center">Log In</h1>
+      <br>
+      <%= form_tag '/login' do %>
+      <p>Email: <%= text_field_tag :email, nil, class:'form-control' %></p>
+      <p>Password: <%= password_field_tag :password, nil, class:'form-control' %></p>
+      <%= link_to "Sign Up", signup_path, class: "btn card-btn p-2" %>
+      <%= submit_tag "Log In",class:"btn card-btn float-right" %>
+      <% end %>
+    </div>
+  </div>
+</div>
