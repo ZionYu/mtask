@@ -21,6 +21,8 @@ class TasksController < ApplicationController
       @tasks = @user.tasks.where('state = 1', "%#{params[:state]}%").page(params[:page]).per(6)
     elsif params[:state] == "2"
       @tasks = @user.tasks.where('state = 2 ', "%#{params[:state]}%").page(params[:page]).per(6)
+    elsif params[:tag]
+      @tasks = Task.tagged_with(params[:tag], :any => true).page(params[:page]).per(6)
     end
     
   end
@@ -67,6 +69,7 @@ class TasksController < ApplicationController
     flash[:notice] = '任務已刪除'
   end
 
+
   private
 
   def set_task
@@ -74,7 +77,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline, :state, :priority, :user_id)
+    params.require(:task).permit(:title, :content, :deadline, :state, :priority, :user_id, :tag_list)
   end
 
 end

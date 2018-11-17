@@ -20,6 +20,10 @@
           <%= f.text_area :content, rows:8, class:"form-control" %>
         </div>
         <div class="form-group">
+          <%= f.label :tag_list, 'Tags'  %>     
+          <%= f.text_field :tag_list, placeholder:"Multiple tags separated by ' , '",class:"form-control" %>
+        </div>
+        <div class="form-group">
           <%= f.label :deadline, 'Deadline' %>
           <%= f.datetime_select :deadline, start_year: Time.current.year, class:"form-control" %>
         </div>
@@ -31,6 +35,7 @@
           <%= f.label :priority, 'Priority' %>
           <%= f.select(:priority, options_for_select(Task.priorities.map { |key, value| [key.humanize, key] }, selected: @task.priority, class:"form-control"))   %>  
         </div>
+        
         <%= f.submit class:"btn card-btn" %>
       <% end %>
     </div>
