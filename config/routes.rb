@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   root "tasks#index"
   resources "tasks"
+  get 'tags/:tag', to: 'tasks#index', as: :tag
   resources :users , only:[:index] do 
     member do
       get :task
