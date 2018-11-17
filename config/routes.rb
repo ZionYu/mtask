@@ -21,4 +21,8 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
+  
+  get '/404', to: 'errors#not_found', code: 404
+  get '/500', to: 'errors#server_error', code: 500
+  
 end
