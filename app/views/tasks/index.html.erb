@@ -6,12 +6,19 @@
   <div class="row" id="assort">
     <div class="col-xs-2 box m-4 p-5">
       <%= link_to 'new', new_task_path %>
-    </div>  
+    </div> 
     <div class="col m-4 p-3">
+      <div class="d-flex">
+        <% tag_cloud Task.tag_counts, %w{s m l} do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(tag.name),class: "badge mr-2"%>
+        <% end %>
+      </div><br>
+      <div>
       <%= form_tag tasks_path, method: :get do %>    
-        <%= select_tag :state, options_for_select(@states), :include_blank => "All", class:"custom-select" %>
-        <%= submit_tag "Go", name: nil, class:" btn card-btn" %>
+        <%= select_tag :state, options_for_select(@states), :include_blank => "All", class:"float-left custom-select" %>
+        <%= submit_tag "Go", name: nil, class:"btn card-btn float-left" %>
       <% end %>
+      </div>
     </div>
   </div>
 </div>

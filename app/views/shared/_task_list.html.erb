@@ -7,7 +7,7 @@
           <h5 class="card-subtitle mb-2 text-muted">狀態： <%= task.state.capitalize %></h5>
           <h5 class="card-subtitle mb-2 text-muted">優先度： <%= task.priority.capitalize %></h5>
           <h5 class="card-subtitle mb-2 text-muted">到期日： <%= task.deadline.strftime("%Y-%m-%d %H:%M:%S") %></h5>
-          <p class="card-text"></p> 
+          <h5 class="card-subtitle mb-2 text-muted" id="tag">標籤： <%= raw(task.tag_list.map { |t| (link_to t, tag_path(t)) }.join(" ")) %></h5>
           <%= link_to 'See more', task_path(task), class:"card-link btn card-btn" %>
           <%= link_to 'Edit', edit_task_path(task), class:"card-link btn card-btn" %>
           <%= link_to 'Delete', task_path(task), method: :delete, data: {confirm: t('view.task.message.delete_confirm')}, class:"card-link btn card-btn"%>

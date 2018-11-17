@@ -31,6 +31,7 @@ gem 'ffaker'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 gem 'bcrypt'
+gem 'acts-as-taggable-on', '~> 6.0'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
