@@ -14,8 +14,10 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
     if @user.save
       redirect_to admin_root_path
+      flash[:notice] = "使用者新增成功"
     else
       render :new
+      flash[:alert] = "使用者新增失敗"
     end
   end
 
@@ -41,8 +43,17 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
-    @user.destroy if User.where(role:"admin").count > 1
-    flash[:alert] = "管理者剩1人不能刪除！"
+    if @user.admin?
+      if User.where(role:"admin").count == 1
+        flash[:alert] = "管理者剩1人不能刪"
+      else
+        @user.destroy 
+        flash[:notice] = "使用者已刪除"
+      end
+    else
+      @user.destroy 
+      flash[:notice] = "使用者已刪除"
+    end
     redirect_to admin_root_path
   end
 
