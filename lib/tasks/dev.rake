@@ -14,7 +14,8 @@ namespace :dev do
   task fake_task: :environment do
     Task.destroy_all
     User.all.each do |user|
-      5.times do |i|
+      15.times do |i|
+        tag_list = ["exercise", "learn", "travel", "skill", "urgent"]
         Task.create!(
           title: FFaker::BaconIpsum.word,
           content: FFaker::HipsterIpsum.phrase,
@@ -22,7 +23,8 @@ namespace :dev do
           deadline: Time.now + rand(0..10000) + rand(1..100).days,
           state: rand(0..2),
           priority: rand(0..2),
-          user_id: User.ids.sample
+          user_id: User.ids.sample,
+          tag_list: tag_list.sample(rand(1..3))
         )
       end
     end
