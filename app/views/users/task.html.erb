@@ -1,7 +1,11 @@
+<%= render partial: "shared/form_nav" %>
 <div class="container">
   <div class="row">
     <h1 class="d-flex"><%= @user.name %>的任務</h1>
     <p><%= link_to 'New Task', new_task_path, class: "btn card-btn float-lg-right mt-2" %></p>
     <%= render partial: 'shared/task_list' %>
+    <div class="col-md-6 offset-md-4">
+      <%= paginate @tasks, theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+    </div>
   </div>
 </div>

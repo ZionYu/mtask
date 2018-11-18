@@ -1,3 +1,4 @@
+<%= render partial: "shared/form_nav" %>
 <div class="container">
   <div class="row">
     <%= link_to 'Create User', new_admin_user_path, class:"btn card-btn m-4" %> 
@@ -29,8 +30,8 @@
             </td>
             <td>     
               <%= form_tag admin_user_path(user), method: :patch do %>
-                <%= select_tag(:role, options_for_select([['Public','public'], ['Admin','admin']],user.role),class:"custom-select") %>
-                <span></span><%= submit_tag "Update",class: "btn card-btn" %>
+                <span id="role"><%= select_tag(:role, options_for_select([['Public','public'], ['Admin','admin']],user.role),class:"") %></span>
+                <%= submit_tag "Update", class: "btn card-btn" %>
               <% end %>
             </td>
           </tr>

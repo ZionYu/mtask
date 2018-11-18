@@ -1,3 +1,11 @@
 <nav class="navbar navbar-dark bg-dark p-4">
-  <%= link_to 'Task', root_path, class: "navbar-brand" %>   
+  <%= link_to 'Task', root_path, class: "navbar-brand" %>
+  <% if current_user.admin? %>
+    <%= link_to "使用者管理", admin_root_path, class: "btn btn-outline-danger ml-auto" %> 
+  <% end %>
+  <% if current_user %>
+    <h4 class="text-light p-4">Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %></h4>
+  <% else %>
+    <h4 class="p-4"><%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %></h4>
+  <% end %> 
 </nav>
