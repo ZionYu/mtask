@@ -7,9 +7,9 @@
   ----------      | -------- 
   id              | integer 
   title           | string
-  content         | string  
-  state           | string  
-  priority        | string
+  content         | text 
+  state           | integer  
+  priority        | integer
   deadline        | datetime      
   user_id         | string
 
@@ -21,19 +21,6 @@
   email           | string  
   password_digest | string  
   role            | string
-
-### Categories
-  ColumnName      | DataType 
-  ----------      | -------- 
-  id              | integer 
-  name            | string
-
-### Category_of_tasks
-  ColumnName      | DataType 
-  ----------      | -------- 
-  id              | integer 
-  task_id         | integer
-  Category_id     | integer  
 
 ## Deploy
   1. 安裝 Heroku  $ brew install heroku
