@@ -1,5 +1,4 @@
 class Admin::BaseController < ApplicationController
-  before_action :authorize
   before_action :authenticate_admin
   
   def authenticate_admin

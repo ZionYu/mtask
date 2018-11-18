@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+  skip_before_action :authorize
 
   def new
 
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def task
     @user = User.find(params[:id])
-    @tasks = @user.tasks.all
+    @tasks = @user.tasks.page(params[:page]).per(6)
   end
 
   private
